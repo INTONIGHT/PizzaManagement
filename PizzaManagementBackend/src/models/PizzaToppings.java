@@ -34,7 +34,7 @@ public class PizzaToppings {
 	}
 	@Override
 	public String toString() {
-		return "PizzaToppings [id=" + id + ", toppingName=" + toppingName + ", referenceId=" + referenceId + "]";
+		return toppingName;
 	}
 	@Override
 	public int hashCode() {

@@ -15,7 +15,16 @@ public class PizzaDAO {
 	private Connection conn = JDBCConnection.getConnection();
 	//Implementing CRUD operations
 	public boolean createPizza(String pizzaName, ArrayList<PizzaToppings> toppings) {
-		
+		if(getToppings(toppings) == true) {
+			return false;
+		}
+		/**
+		 * insert into Pizzas(pizzaName,pizzaToppings)
+			values('Supreme','Pepporoni,Sausage,Ham,Cheese,Onions,Cheese,Peppers');
+			modify column pizzaID int auto_increment
+;
+		 */
+		String sql = "insert into Pizza_manager.Pizzas(pizzaName,pizzaToppings) values(?,?)";
 		return false;
 	}
 	

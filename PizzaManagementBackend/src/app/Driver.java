@@ -13,8 +13,8 @@ public class Driver {
 		ArrayList<PizzaToppings> toppings = new ArrayList<>();
 		PizzaToppings topping = new PizzaToppings(1,"cheese","cheese");
 		toppings.add(topping);
-		//topping.setToppingName("Test");
-		//toppings.add(topping);
+		topping.setToppingName("Test");
+		toppings.add(topping);
 		System.out.println(pdao.getToppings(toppings));
 	}
 }

@@ -18,13 +18,29 @@ public class PizzaDAO {
 		if(getToppings(toppings) == true) {
 			return false;
 		}
-		/**
-		 * insert into Pizzas(pizzaName,pizzaToppings)
-			values('Supreme','Pepporoni,Sausage,Ham,Cheese,Onions,Cheese,Peppers');
-			modify column pizzaID int auto_increment
-;
-		 */
 		String sql = "insert into Pizza_manager.Pizzas(pizzaName,pizzaToppings) values(?,?)";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			PizzaToppings pt = new PizzaToppings();
+			StringBuilder pizzaToppingsHolder = new StringBuilder();
+			for(int i = 0;i<toppings.size();i++) {
+				pt.setId(toppings.get(i).getId());
+				pt.setToppingName(toppings.get(i).getToppingName());
+				String top = pt.toString();
+				pizzaToppingsHolder.append(top);
+				if(i<toppings.size()-1) {
+					pizzaToppingsHolder.append(",");
+				}
+				
+			}
+			String pth = pizzaToppingsHolder.toString();
+			ps.setString(1, pizzaName);
+			ps.setString(2,pth);
+			boolean b = ps.execute();
+			return b;
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 	
@@ -33,14 +49,15 @@ public class PizzaDAO {
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			PizzaToppings pt = new PizzaToppings();
+			StringBuilder pizzaToppingsHolder = new StringBuilder();
 			for(int i =0; i<toppings.size();i++) {
 				pt.setId(toppings.get(i).getId());
-				pt.setReferenceId(toppings.get(i).getReferenceId());
 				pt.setToppingName(toppings.get(i).getToppingName());
+				String top = pt.toString();
+				pizzaToppingsHolder.append(top).append(",");
 			}
-			String top = pt.toString();
-			System.out.println(top + "This is what the toppings looks like now");
-			ps.setString(1, top);
+			String pth = pizzaToppingsHolder.toString();
+			ps.setString(1, pth);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next() == false) {
 				return false;

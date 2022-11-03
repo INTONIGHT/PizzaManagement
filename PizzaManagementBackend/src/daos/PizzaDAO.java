@@ -177,6 +177,7 @@ public class PizzaDAO {
 		boolean b = updateToppingsOnPizza(pizzaId, pizzaToppings) && updatePizzaName(pizzaId,pizzaName);
 		return b;
 	}
+	
 	public boolean deletePizza(int pizzaId) {
 		String sql = "delete from Pizza_Manager.Pizzas where pizzaID = ?";
 		try {

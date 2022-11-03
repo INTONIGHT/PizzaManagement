@@ -71,14 +71,22 @@ public class PizzaServlet extends HttpServlet{
 			Pizza pizza = pdao.getPizza(pizzaName);
 			response.getWriter().append(gson.toJson(pizza));
 			break;
-		case "createPizza":
-			User user = (User) session.getAttribute("login");
+		case "/createPizza":
 			Pizza newPizza = new Pizza();
 			newPizza.setPizzaName(this.gson.fromJson(request.getReader(), String.class));
 			ArrayList<PizzaToppings> pizzaToppings = new ArrayList<>();
 			pizzaToppings.addAll((Collection<? extends PizzaToppings>) this.gson.fromJson(request.getReader(),PizzaToppings.class));
 			pdao.createPizza(newPizza.getPizzaName(), pizzaToppings);
 			response.getWriter().append(newPizza + "Has been created with: " + pizzaToppings);
+			break;
+		case"/updateToppingsOnPizza":
+			ArrayList<PizzaToppings> pt = this.gson.fromJson(request.getReader(), ArrayList.class);
+			String name = this.gson.fromJson(request.getReader(), String.class);
+			boolean b = pdao.createPizza(name, pt);
+			response.getWriter().append(pdao.getPizza(name) + " Has been created with a response of " + b);
+			break;
 		}
+		
+			
 	}
 }

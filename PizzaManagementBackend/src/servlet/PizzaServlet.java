@@ -79,12 +79,65 @@ public class PizzaServlet extends HttpServlet{
 			pdao.createPizza(newPizza.getPizzaName(), pizzaToppings);
 			response.getWriter().append(newPizza + "Has been created with: " + pizzaToppings);
 			break;
+		case"/getPizzaId":
+			String nameToFind = this.gson.fromJson(request.getReader(), String.class);
+			int id = pdao.getId(nameToFind);
+			response.getWriter().append(id + "Pizza id for: " + nameToFind);
+			break;
 		case"/updateToppingsOnPizza":
 			ArrayList<PizzaToppings> pt = this.gson.fromJson(request.getReader(), ArrayList.class);
-			String name = this.gson.fromJson(request.getReader(), String.class);
-			boolean b = pdao.createPizza(name, pt);
-			response.getWriter().append(pdao.getPizza(name) + " Has been created with a response of " + b);
+			int pizzaId = this.gson.fromJson(request.getReader(), Integer.class);
+			boolean b = pdao.updateToppingsOnPizza(pizzaId, pt);
+			response.getWriter().append( "PizzaToppings has been updated for pizza with id of: " +pizzaId + "with a response of: "+ b);
 			break;
+		case "/updatePizzaName":
+			String namePizza = this.gson.fromJson(request.getReader(), String.class);
+			int pid = this.gson.fromJson(request.getReader(), Integer.class);
+			boolean bool = pdao.updatePizzaName(pid, namePizza);
+			response.getWriter().append("Updated pizza name with name: " + namePizza + "With a repsnse of: " + bool);
+			break;
+		case "/updateToppingsAndName":
+			String nameToChange = this.gson.fromJson(request.getReader(), String.class);
+			ArrayList<PizzaToppings> toppingsToChange = this.gson.fromJson(request.getReader(), ArrayList.class);
+			int idOfChange = this.gson.fromJson(request.getReader(), Integer.class);
+			boolean check = pdao.updatePizzaNameAndToppings(idOfChange, nameToChange, toppingsToChange);
+			response.getWriter().append("Updated toppings and pizzas with : " + nameToChange + " " + toppingsToChange + "with response " + check);
+			break;
+		case "/deletePizza":
+			int idToDelete = this.gson.fromJson(request.getReader(), Integer.class);
+			boolean deleted = pdao.deletePizza(idToDelete);
+			response.getWriter().append("Deleted pizza with id of: " + idToDelete + "with response " + deleted);
+			break;
+		case "/createTopping":
+			String toppingName = this.gson.fromJson(request.getReader(), String.class);
+			boolean toppingCreated = ptdao.createTopping(toppingName);
+			response.getWriter().append("Creating topping with name :" +toppingName + "with response of :" + toppingCreated);
+			break;
+		case "/getToppingId":
+			String toppingToFind = this.gson.fromJson(request.getReader(), String.class);
+			int toppingId = ptdao.getToppingId(toppingToFind);
+			response.getWriter().append("The Id for that topping is: " + toppingId);
+			break;
+		case "/getAllToppings":
+			ArrayList<PizzaToppings> pizzatoppings = new ArrayList<>();
+			pizzatoppings = ptdao.getAllToppings();
+			response.setHeader("Access-Control-Allow-Origin", "*");
+			response.getWriter().append(gson.toJson(pizzatoppings));
+			break;
+		case"/updateTopping":
+			String newToppingName = this.gson.fromJson(request.getReader(), String.class);
+			int toppingIdToChange = this.gson.fromJson(request.getReader(), Integer.class);
+			boolean updateToppingSuccess = ptdao.updateTopping(newToppingName, toppingIdToChange);
+			response.getWriter().append(gson.toJson("Topping was changed to " + newToppingName + "with response of " + updateToppingSuccess));
+			break;
+		case "/deleteTopping":
+			int toppingIdToDelete = this.gson.fromJson(request.getReader(), Integer.class);
+			boolean deleteToppingSuccess = ptdao.deleteTopping(toppingIdToDelete);
+			response.getWriter().append(gson.toJson("The following topping was deleted with id of " + toppingIdToDelete + "with response: " + deleteToppingSuccess));
+			break;
+		default :{
+			System.out.println("Default case");
+		}
 		}
 		
 			

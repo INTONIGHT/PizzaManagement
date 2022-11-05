@@ -1,0 +1,20 @@
+h1{
+    position: relative;
+    left:300px;
+    font-weight: 800;
+}
+#container{
+    position:relative;
+    left:300px
+}
+h3{
+    position: relative;
+    left:300px;
+    color: rgb(29, 70, 5);
+}
+body{
+    background-color: rgb(72, 176, 236);
+}
+#login{
+    color:blueviolet;
+}

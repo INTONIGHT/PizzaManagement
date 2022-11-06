@@ -14,6 +14,9 @@ public class PizzaToppings {
 		this.toppingName = toppingName;
 		
 	}
+	public PizzaToppings(String toppingName) {
+		this.toppingName = toppingName;
+	}
 	public int getId() {
 		return id;
 	}

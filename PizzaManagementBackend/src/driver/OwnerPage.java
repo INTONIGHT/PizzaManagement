@@ -11,7 +11,7 @@ public class OwnerPage {
 
 	public void OwnerLogin(String username,String password) {
 		System.out.println("Type Create to create a new pizza");
-		System.out.println("\n Type Update to Update items of a pizza such as name and/or toppings");
+		System.out.println("\n Type Update to Update items of a pizza such as name or toppings");
 		System.out.println("\n Type Delete to delete a pizza");
 		System.out.println("\n Type GetAll to get all the pizzas");
 		System.out.println("\n Type GetById to get a pizza by id");
@@ -38,7 +38,7 @@ public class OwnerPage {
 					PizzaToppings t = new PizzaToppings(name);
 					toppings.add(t);
 				}
-				if(dimpl.createPizza(pizzaName, toppings) == false) {
+				if(dimpl.createPizza(pizzaName, toppings) == true) {
 					System.out.println("Please create a pizza with different toppings");
 					break;
 				}
@@ -47,7 +47,7 @@ public class OwnerPage {
 						break;
 					}
 			case "Update":
-				System.out.println("Type UpdateName to update a name UpdateToppings for toppings and UpdateBoth to do both at the same time");
+				System.out.println("Type UpdateName to update a name UpdateToppings for toppings");
 				String updateChoice = input.next();
 				switch(updateChoice) {
 				case "UpdateName":
@@ -55,7 +55,7 @@ public class OwnerPage {
 					int pizzaId = input.nextInt();
 					System.out.println("Type the new name you want");
 					String newName = input.next();
-					if(dimpl.updatePizzaName(pizzaId, newName) == true) {
+					if(dimpl.updatePizzaName(pizzaId, newName) == false) {
 						System.out.println("Name was updated succesfully");
 					}else {
 						System.out.println("Something went wrong apologies");
@@ -73,13 +73,14 @@ public class OwnerPage {
 						PizzaToppings tops = new PizzaToppings(name);
 						toppings.add(tops);
 					}
-					if(dimpl.updateToppingsOnPizza(idToChange, toppings) == true) {
+					if(dimpl.updateToppingsOnPizza(idToChange, toppings) == false) {
 						System.out.println("Toppings succesfully updated on that pizza");
 					} else {
 						System.out.println("Error sorry");
 					}
 					break;
-				case "UpdateBoth":
+					/**
+					 * case "UpdateBoth":
 					System.out.println("Type the id of the pizza you want to update toppings and name for");
 					int idOfChange = input.nextInt();
 					System.out.println("Type the name you want to change it to");
@@ -93,12 +94,14 @@ public class OwnerPage {
 						PizzaToppings topsChange = new PizzaToppings(name);
 						toppings.add(topsChange);
 					}
-					if(dimpl.updatePizzaNameAndToppings(idOfChange, nameNew, toppings) == true) {
+					if(dimpl.updatePizzaNameAndToppings(idOfChange, nameNew, toppings) == false) {
 						System.out.println("Succesfully updated everything");
 					}else {
 						System.out.println("Problem occured");
 					}
 					break;
+					 */
+				
 				}
 				break;
 			case "Delete":
@@ -107,7 +110,7 @@ public class OwnerPage {
 				System.out.println("Are you certain you wish to delete this pizza? Type Yes if you are No if not");
 				String choice = input.next();
 				if(choice.equals("Yes")) {
-					if(dimpl.deletePizza(pizzaToDelete) == true) {
+					if(dimpl.deletePizza(pizzaToDelete) == false) {
 						System.out.println("Pizza deleted");
 					}else {
 						System.out.println("Error");
@@ -117,13 +120,14 @@ public class OwnerPage {
 				} else {
 					break;
 				}
+				break;
 			case "GetById":
 				System.out.println("This function will get the id of a given pizza name please type the name");
 				String nameToFind = input.next();
 				System.out.println(dimpl.getPizzaId(nameToFind) + " this is the id for that pizza if it is -1 then the pizza doesnt exist");
 				break;
 			case "GetAll":
-				System.out.println(dimpl.getAllPizzas() + " This is the list of pzizas found");
+				System.out.println(dimpl.getAllPizzas() + " This is the list of pizzas found");
 				break;
 			case "Leave":
 				running = false;

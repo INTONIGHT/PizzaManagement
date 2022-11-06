@@ -65,7 +65,7 @@ public class PizzaToppingsDAO {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			ArrayList<PizzaToppings> pizzaToppings = new ArrayList<>();
-			if(rs.next()) {
+			while(rs.next() == true) {
 				PizzaToppings pt = new PizzaToppings();
 				pt.setId(rs.getInt("toppingsId"));
 				pt.setToppingName(rs.getString("toppingsName"));
@@ -95,7 +95,7 @@ public class PizzaToppingsDAO {
 		return false;
 	}
 	public boolean deleteTopping(int toppingsId) {
-		String sql = "delete from Pizza_Manager.PizzaToppings where toppingsId = ?";
+		String sql = "delete from Pizza_manager.PizzaToppings where toppingsId = ?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, toppingsId);

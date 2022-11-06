@@ -102,14 +102,16 @@ public class PizzaDAO {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			ArrayList<Pizza> pizzas = new ArrayList<>();
-			if(rs.next()) {
-				Pizza p = new Pizza();
-				p.setId(rs.getInt("pizzaID"));
-				p.setPizzaName(rs.getString("pizzaName"));
-				p.setPizzaToppings(rs.getString("pizzaToppings"));
-				pizzas.add(p);
+			while(rs.next() == true) {
+					Pizza p = new Pizza();
+					p.setId(rs.getInt("pizzaID"));
+					p.setPizzaName(rs.getString("pizzaName"));
+					p.setPizzaToppings(rs.getString("pizzaToppings"));
+					pizzas.add(p);
 			}
+			
 			return pizzas;
+			
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -153,7 +155,8 @@ public class PizzaDAO {
 			String pth = pizzaToppingsHolder.toString();
 			ps.setString(1, pth);
 			ps.setInt(2, pizzaId);
-			boolean b = ps.execute(sql);
+			
+			boolean b = ps.execute();
 			return b;
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -161,7 +164,7 @@ public class PizzaDAO {
 		return false;
 	}
 	public boolean updatePizzaName(int pizzaId, String pizzaName) {
-		String sql = "update Pizza_Manager.Pizzas set pizzaName = ? where pizzaID = ?";
+		String sql = "update Pizza_manager.Pizzas set pizzaName = ? where pizzaID = ?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, pizzaName);
@@ -179,7 +182,7 @@ public class PizzaDAO {
 	}
 	
 	public boolean deletePizza(int pizzaId) {
-		String sql = "delete from Pizza_Manager.Pizzas where pizzaID = ?";
+		String sql = "delete from Pizza_manager.Pizzas where pizzaID = ?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, pizzaId);

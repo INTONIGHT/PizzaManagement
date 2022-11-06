@@ -23,7 +23,7 @@ public class ChefPage {
 			case "Create":
 				System.out.println("Type the name of the topping you want to create");
 				toppingName = input.next();
-				if(dimpl.createToppings(toppingName) == false) {
+				if(dimpl.createToppings(toppingName) == true) {
 					System.out.println("Please create a different topping that already exists");
 					break;
 				} else {
@@ -49,7 +49,7 @@ public class ChefPage {
 				id = input.nextInt();
 				System.out.println("Type the name you want for the topping");
 				toppingName = input.next();
-				if(dimpl.updateTopping(toppingName, id) == true) {
+				if(dimpl.updateTopping(toppingName, id) == false) {
 					System.out.println("Topping succesffully updated");
 				}else {
 					System.out.println("Error");
@@ -61,7 +61,7 @@ public class ChefPage {
 				System.out.println("Type Yes if you are certain you want to delete this topping else type No");
 				String choice = input.next();
 				if(choice.equals("Yes")) {
-					System.out.println("The result of executing that query was :" + dimpl.deleteTopping(id));
+					System.out.println("The result of executing that query was :" + !dimpl.deleteTopping(id));
 				} else if (choice.equals("No")) {
 					System.out.println("Have a nice day");
 				}

@@ -37,7 +37,8 @@ public class ProcessInput {
 				System.out.println("Type your password");
 				password = input.next();
 				try {
-					
+					ChefPage chefPage = new ChefPage();
+					chefPage.ChefLogin(username, password);
 				} catch(NullPointerException e) {
 					e.printStackTrace();
 				}

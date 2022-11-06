@@ -106,13 +106,13 @@ public class OwnerPage {
 				int pizzaToDelete = input.nextInt();
 				System.out.println("Are you certain you wish to delete this pizza? Type Yes if you are No if not");
 				String choice = input.next();
-				if(choice == "Yes") {
+				if(choice.equals("Yes")) {
 					if(dimpl.deletePizza(pizzaToDelete) == true) {
 						System.out.println("Pizza deleted");
 					}else {
 						System.out.println("Error");
 					}
-				} else if(choice == "No") {
+				} else if(choice.equals("No")) {
 					break;
 				} else {
 					break;
